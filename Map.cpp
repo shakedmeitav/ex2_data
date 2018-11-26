@@ -31,6 +31,16 @@ Node<T> Node<T>:: nodeGetPrev(){
     return this->prev;
 }
 
+template <class T>
+void* Node<T>::nodesetNext(Node node){
+    node.next=node;
+}
+
+
+template <class T>
+void* Node<T>::nodesetprev(Node node){
+    node.prev=node;
+}
 
 template <class T>
 void Node<T>:: setKey(T key){

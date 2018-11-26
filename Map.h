@@ -77,6 +77,19 @@ public:
      */
     Node nodeGetPrev();
     /**
+     * set the next node to be the input node
+     * @param node
+     * @return
+     */
+    void* nodesetNext(Node node);
+    /**
+     * set the prev node to be the input node
+     * @param node
+     * @return
+     */
+    void* nodesetprev(Node node);
+
+    /**
      * get a node and a key and set the key of the node to be the key of the
      * input node
      * @param node
