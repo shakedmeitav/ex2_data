@@ -1,4 +1,18 @@
+
+#include <cstring>
+#include <iostream>
+
 #include "Map.h"
+
+
+Map::Map(void* DS): DS(DS),size(0){
+}
+
+
+int Map::MapSize ()const{
+    return this->size;
+}
+
 
 #include <iostream>
 

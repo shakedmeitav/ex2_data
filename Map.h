@@ -14,11 +14,20 @@ public:
  */
     Map(void* DS);
 
-    ~Map();
+    ~Map()= default;
 
-    Map (const Map &map);
+    Map (const Map &map)= default;
 
-    Map &operator=(const Map &map);
+    Map &operator=(const Map &map)= default;
+
+
+    /**
+     * the function returns the number of elements in the map
+     * @param DS - the first pointer to the list of the map
+     * @return the size of the map
+     * the complexity is O(1)
+     */
+    int MapSize() const;
 
 
 };
