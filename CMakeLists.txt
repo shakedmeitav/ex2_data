@@ -3,4 +3,4 @@ project(untitled)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_library(untitled library.cpp library.h Map.cpp Map.h)
+add_library(untitled library.cpp library.h Map.cpp Map.h Exception.h)
