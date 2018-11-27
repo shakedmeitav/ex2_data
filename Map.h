@@ -2,7 +2,91 @@
 #define UNTITLED_MAP_H
 
 class Map{
-    void* DS;
+
+    template <class T>
+    class Node {
+        T key;
+        void* value;
+        Node* next;
+        Node* prev;
+
+    public:
+/**
+ * constructor of Node  O(1)
+ * @tparam T
+ * @param key
+ * @param value
+ */
+        Node(T key,  void* value);
+/**
+ * destructor 0(1)
+ */
+        ~Node()= default;
+/**
+ * copy constructor 0(1)
+ * @param node
+ */
+        Node (const Node &node)= default;
+/**
+ * operator = ,0(1)
+ * @param node
+ * @return
+ */
+        Node &operator=(const Node &node)= default;
+
+/**
+ * return the next node of the input node
+ * @param node
+ * @return
+ */
+        Node* nodeGetNext();
+        /**
+         * return the prev node of the input node
+         * @param node
+         * @return
+         */
+        Node* nodeGetPrev();
+        /**
+         * set the next node to be the input node
+         * @param node
+         * @return
+         */
+        void* nodesetNext(Node* node);
+        /**
+         * set the prev node to be the input node
+         * @param node
+         * @return
+         */
+        void* nodesetprev(Node* node);
+
+        /**
+         * get a node and a key and set the key of the node to be the key of the
+         * input node
+         * @param node
+         * @param key
+         */
+        void setKey(T key);
+        /**
+         * get a node and a value and set the value of the node to be the value
+         * of the input node
+         * @param node
+         * @param value
+         */
+        void setValue(void* value);
+        /**
+         * get a node and return his key
+         * @return
+         */
+        T getKey();
+        /**
+         * get a node and return his value
+         * @return
+         */
+        void* getValue();
+
+    };
+
+    Node<int>* head;
     int size;
 
 public:
@@ -31,93 +115,69 @@ public:
     int MapSize() const;
 
 /**
- *  the function retuan the DS if the map
+ *  the function retuan the head in the map
  * @return
  */
-    void* returnDS ();
+    void* returnHead ();
 
-    template <class T>
-class Node {
-    T key;
-    void* value;
-    Node* next;
-    Node* prev;
 
-public:
-/**
- * constructor of Node  O(1)
- * @tparam T
- * @param key
- * @param value
+/* Description:   Adds a new item to the data structure.
+ * Input:         DS - A pointer to the data structure.
+ *                key - The key to add.
+ *                value - A pointer to the value to add.
+ 				  node - A pointer to a place which will hold a pointer to the new node in the DS.
+ * Output:        None.
+ * Return Values: Node.
  */
-    Node(T key,  void* value);
-/**
- * destructor 0(1)
- */
-    ~Node()= default;
-/**
- * copy constructor 0(1)
- * @param node
- */
-    Node (const Node &node)= default;
-/**
- * operator = ,0(1)
- * @param node
- * @return
- */
-    Node &operator=(const Node &node)= default;
+    void Add(void *DS, int key, void* value, void** node);
 
-/**
- * return the next node of the input node
- * @param node
- * @return
+
+    /* Description:   Finds an item in the data structure.
+ * Input:         DS - A pointer to the data structure.
+ *                key - The item to find.
+ * Output:        value - a pointer to a variable which will contain the value of the element.
+ * Return Values: ALLOCATION_ERROR - In case of an allocation error.
+ *                INVALID_INPUT - If DS==NULL.
+ *                FAILURE - If the item does not exist in the DS.
+ *                SUCCESS - If the item is found in the DS.
  */
-    Node* nodeGetNext();
-    /**
-     * return the prev node of the input node
-     * @param node
-     * @return
-     */
-    Node* nodeGetPrev();
-    /**
-     * set the next node to be the input node
-     * @param node
-     * @return
-     */
-    void* nodesetNext(Node* node);
-    /**
-     * set the prev node to be the input node
-     * @param node
-     * @return
-     */
-    void* nodesetprev(Node* node);
+    void Find(void *DS, int key, void** value);
 
-    /**
-     * get a node and a key and set the key of the node to be the key of the
-     * input node
-     * @param node
-     * @param key
-     */
-    void setKey(T key);
-    /**
-     * get a node and a value and set the value of the node to be the value
-     * of the input node
-     * @param node
-     * @param value
-     */
-    void setValue(void* value);
-    /**
-     * get a node and return his key
-     * @return
-     */
-    T getKey();
-    /**
-     * get a node and return his value
-     * @return
-     */
-    void* getValue();
 
-};
+
+
+
+// the complexity is O(1)
+/* Description:   Delete an item from the data structure.
+ * Input:         DS - A pointer to the data structure.
+ *                p - A pointer to the node to delete.
+ * Return Values: None.
+ */
+    void DeleteByPointer(void *DS, void* p);
+
+    /* Description:   Delete an item from the data structure.
+ * Input:         DS - A pointer to the data structure.
+ *                key - The item to delete.
+ * Output:        None.
+ */
+
+    void Delete(void *DS, int key);
+
+/* Description:   Returns the current number of items in the data structure.
+ * Input:         DS - A pointer to the data structure.
+ * Output:        n - A pointer to a variable that should be updated to the number of items in the data structure.
+ */
+    void Size(void *DS, int *n);
+
+/* Description:   Quits and deletes the database.
+ *                DS should be set to NULL.
+ * Input:         DS - A pointer to the data structure.
+ * Output:        None.
+ * Return Values: None.
+ */
+
+    void Quit(void **DS);
+
     };
 
 

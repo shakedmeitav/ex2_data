@@ -6,8 +6,7 @@
 #include <iostream>
 
 Map::Map():size(0) {
-    Map::Node<int>* new_Ds = new Node<int>();
-    this->DS = new_Ds;
+    this->head =NULL;
 }
 
 int Map::MapSize ()const{
@@ -15,8 +14,8 @@ int Map::MapSize ()const{
 }
 
 
-void* Map::returnDS (){
-    return this->DS;
+void* Map::returnHead (){
+    return this->head;
 }
 
 
@@ -76,52 +75,57 @@ void *Init(){
 }
 
 
-//the complexity is O(n)
-StatusType Add(void *DS, int key, void* value, void** node){
+//the complexity is O(1)
+void Map::Add(void *DS, int key, void* value, void** node){
     if (DS==NULL || node == NULL)
         throw dataStructure::INVALID_INPUT();
-    StatusType status= Find(DS, key, & value);
-    if (status == SUCCESS)
-        throw dataStructure::FAILURE();
-    if (status == ERROR_ALLOCATION)
-        return ERROR_ALLOCATION;
-
-
-
-    if(status== INVALID_INPUT)
-        return INVALID_INPUT;
-
-    Node* new_node = new Node;
+    Node<int>* new_node = new Node<int>(key,value);
     if (new_node==NULL)
-        throw dataStructure::ERROR_ALLOCATION();
-
-    new_node->nodesetNext((Node*)DS);
+        throw dataStructure::ALLOCATION_ERROR();
+    new_node->nodesetNext(this->head);
     new_node->nodesetprev(NULL);
-
-    //(Node*)DS->nodes
-    DS->prev=new_node;
-
+    this->head->nodesetprev(new_node);
     new_node->setKey(key);
     new_node->setValue(value);
-    DS=new_node;
+    this->head=new_node;
+    this->size++;
+    throw dataStructure::SUCCESS();
+}
 
-    DS->size=DS->size+1;
-    return SUCCESS;
+
+void Map::DeleteByPointer(void *DS, void* p){
+        if(DS==NULL || p==NULL)
+            throw dataStructure::INVALID_INPUT();
+        Node<int>* convert_p=(Node<int>*)p;
+        if(convert_p->nodeGetPrev()==NULL) { //p is the first Node
+            this->head=convert_p->nodeGetNext();
+            (convert_p->nodeGetNext())->nodesetprev(NULL);
+            delete convert_p;
+            size--;
+            throw dataStructure::SUCCESS();
+        }
+        if(convert_p->nodeGetNext()==NULL){                  //p is the last Node
+            convert_p->nodeGetPrev()->nodesetNext(NULL);
+            delete convert_p;
+            size--;
+            throw SUCCESS;
+        }
+        convert_p->nodeGetPrev()->nodesetNext(convert_p->nodeGetNext());
+        convert_p->nodeGetNext()->nodesetprev(convert_p->nodeGetPrev());
+        delete convert_p;
+        size--;
+        throw SUCCESS;
 }
 
 
 
-
-
-
-
-StatusType Find(void *DS, int key, void* value) {
-    if (DS == NULL || value == NULL)
+void Map::Find(void *DS, int key, void** value) {
+    if (DS == NULL || *value == NULL)
         throw INVALID_INPUT;
-    Map::Node<int>* itr=( Map::Node<int>*)DS;
+    Node<int>* itr=(Node<int>*)this->head;
     while (itr != NULL) {
         if (itr->getKey() == key) {
-            value = itr->getValue();
+            *value = itr->getValue();
             throw SUCCESS;
         }
         itr = itr->nodeGetNext();
@@ -130,14 +134,58 @@ StatusType Find(void *DS, int key, void* value) {
 }
 
 
-/*StatusType Delete(void *DS, int key){
-    if(DS==NULL)
+
+void  Map::Delete(void *DS, int key) {
+    if (DS == NULL)
         throw INVALID_INPUT;
-    Node<int>* itr=( Node<int>*)DS;
-    if(itr->getKey()==key)         //first node
-
-
+    Node<int> *itr = (Node<int>*) DS;
+    void *value;
+    if (itr->getKey() == key) {         //first node
+        this->head = itr->nodeGetNext();
+        this->head->nodesetprev(NULL);
+        delete itr;
+        size--;
+        throw SUCCESS;
+    } else              //finish eith the case of the first node
+        itr = itr->nodeGetNext();
+    while (itr->nodeGetNext() != NULL){
+        if (itr->getKey() == key) {
+            if (itr->nodeGetNext() != NULL) {  //not the last node
+                itr->nodeGetNext()->nodesetprev(itr->nodeGetPrev());
+                itr->nodeGetPrev()->nodesetNext(itr->nodeGetNext());
+            } else                            //we are in the last node
+                itr->nodeGetPrev()->nodesetNext(NULL);
+            delete itr;
+            size--;
+            throw SUCCESS;
+        }
+        itr = itr->nodeGetNext();
+    }
+    throw FAILURE;
 }
 
 
-*/
+
+void Map::Size(void *DS, int *n){
+    if(this->head==NULL || n==NULL)
+        throw INVALID_INPUT;
+
+    *n=this->size;
+    throw SUCCESS;
+}
+
+void Map::Quit(void **DS){
+    Node<int>* save_itr=this->head;
+    Node<int>* itr=this->head;
+    while (itr!=NULL) {
+        save_itr=itr->nodeGetNext();
+        delete itr;
+        Node<int>* itr=save_itr;
+    }
+//delete this->head;
+//delete this->size;
+    delete DS;
+    DS=NULL;
+}
+
+
