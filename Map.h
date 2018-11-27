@@ -129,7 +129,7 @@ public:
  * Output:        None.
  * Return Values: Node.
  */
-    void Add(void *DS, int key, void* value, void** node);
+    void Add(int key, void* value, void** node);
 
 
     /* Description:   Finds an item in the data structure.
@@ -141,7 +141,7 @@ public:
  *                FAILURE - If the item does not exist in the DS.
  *                SUCCESS - If the item is found in the DS.
  */
-    void Find(void *DS, int key, void** value);
+    void Find(int key, void** value);
 
 
 
@@ -153,7 +153,7 @@ public:
  *                p - A pointer to the node to delete.
  * Return Values: None.
  */
-    void DeleteByPointer(void *DS, void* p);
+    void DeleteByPointer(void* p);
 
     /* Description:   Delete an item from the data structure.
  * Input:         DS - A pointer to the data structure.
@@ -161,13 +161,13 @@ public:
  * Output:        None.
  */
 
-    void Delete(void *DS, int key);
+    void Delete(int key);
 
 /* Description:   Returns the current number of items in the data structure.
  * Input:         DS - A pointer to the data structure.
  * Output:        n - A pointer to a variable that should be updated to the number of items in the data structure.
  */
-    void Size(void *DS, int *n);
+    void Size(int *n);
 
 /* Description:   Quits and deletes the database.
  *                DS should be set to NULL.

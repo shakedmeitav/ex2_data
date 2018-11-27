@@ -67,17 +67,9 @@ void* Map::Node<T>::getValue(){
 }
 
 
-
-
 //the complexity is O(1)
-void *Init(){
-    Map new_map;
-}
-
-
-//the complexity is O(1)
-void Map::Add(void *DS, int key, void* value, void** node){
-    if (DS==NULL || node == NULL)
+void Map::Add(int key, void* value, void** node){
+    if (node == NULL)
         throw dataStructure::INVALID_INPUT();
     int copy_key=key;
     void* copy_value=value;
@@ -95,8 +87,8 @@ void Map::Add(void *DS, int key, void* value, void** node){
 }
 
 
-void Map::DeleteByPointer(void *DS, void* p){
-        if(DS==NULL || p==NULL)
+void Map::DeleteByPointer(void* p){
+        if(p==NULL)
             throw dataStructure::INVALID_INPUT();
         Node<int>* convert_p=(Node<int>*)p;
         if(convert_p->nodeGetPrev()==NULL) { //p is the first Node
@@ -121,8 +113,8 @@ void Map::DeleteByPointer(void *DS, void* p){
 
 
 
-void Map::Find(void *DS, int key, void** value) {
-    if (DS == NULL || *value == NULL)
+void Map::Find(int key, void** value) {
+    if (*value == NULL)
         throw INVALID_INPUT;
     Node<int>* itr=(Node<int>*)this->head;
     while (itr != NULL) {
@@ -137,10 +129,8 @@ void Map::Find(void *DS, int key, void** value) {
 
 
 
-void  Map::Delete(void *DS, int key) {
-    if (DS == NULL)
-        throw INVALID_INPUT;
-    Node<int> *itr = (Node<int>*) DS;
+void  Map::Delete(int key) {
+    Node<int> *itr = (Node<int>*) head;
     void *value;
     if (itr->getKey() == key) {         //first node
         this->head = itr->nodeGetNext();
@@ -168,7 +158,7 @@ void  Map::Delete(void *DS, int key) {
 
 
 
-void Map::Size(void *DS, int *n){
+void Map::Size(int *n){
     if(this->head==NULL || n==NULL)
         throw INVALID_INPUT;
 
