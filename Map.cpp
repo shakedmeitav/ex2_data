@@ -3,18 +3,21 @@
 #include <iostream>
 #include "library.h"
 #include "Map.h"
+#include <iostream>
 
-
-Map::Map(void* DS): DS(DS),size(0){
+Map::Map():size(0) {
+    Map::Node<int>* new_Ds = new Node<int>();
+    this->DS = new_Ds;
 }
-
 
 int Map::MapSize ()const{
     return this->size;
 }
 
 
-#include <iostream>
+void* Map::returnDS (){
+    return this->DS;
+}
 
 
 template <class T>
@@ -63,6 +66,54 @@ template <class T>
 void* Map::Node<T>::getValue(){
     return this->value;
 }
+
+
+
+
+//the complexity is O(1)
+void *Init(){
+    Map new_map;
+}
+
+
+//the complexity is O(n)
+StatusType Add(void *DS, int key, void* value, void** node){
+    if (DS==NULL || node == NULL)
+        throw dataStructure::INVALID_INPUT();
+    StatusType status= Find(DS, key, & value);
+    if (status == SUCCESS)
+        throw dataStructure::FAILURE();
+    if (status == ERROR_ALLOCATION)
+        return ERROR_ALLOCATION;
+
+
+
+    if(status== INVALID_INPUT)
+        return INVALID_INPUT;
+
+    Node* new_node = new Node;
+    if (new_node==NULL)
+        throw dataStructure::ERROR_ALLOCATION();
+
+    new_node->nodesetNext((Node*)DS);
+    new_node->nodesetprev(NULL);
+
+    //(Node*)DS->nodes
+    DS->prev=new_node;
+
+    new_node->setKey(key);
+    new_node->setValue(value);
+    DS=new_node;
+
+    DS->size=DS->size+1;
+    return SUCCESS;
+}
+
+
+
+
+
+
 
 StatusType Find(void *DS, int key, void* value) {
     if (DS == NULL || value == NULL)

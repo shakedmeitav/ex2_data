@@ -6,13 +6,14 @@ class Map{
     int size;
 
 public:
+
     /**
- * constractur for the Map
- * @param name -
- * @param weapon -
-  * the size will be zero when we will initial
- */
-    Map(void* DS);
+  * constractur for the Map
+  * @param name -
+  * @param weapon -
+   * the size will be zero when we will initial
+  */
+    Map();
 
     ~Map()= default;
 
@@ -29,7 +30,13 @@ public:
      */
     int MapSize() const;
 
-template <class T>
+/**
+ *  the function retuan the DS if the map
+ * @return
+ */
+    void* returnDS ();
+
+    template <class T>
 class Node {
     T key;
     void* value;
