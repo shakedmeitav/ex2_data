@@ -79,7 +79,9 @@ void *Init(){
 void Map::Add(void *DS, int key, void* value, void** node){
     if (DS==NULL || node == NULL)
         throw dataStructure::INVALID_INPUT();
-    Node<int>* new_node = new Node<int>(key,value);
+    int copy_key=key;
+    void* copy_value=value;
+    Node<int>* new_node = new Node<int>(copy_key,copy_value);
     if (new_node==NULL)
         throw dataStructure::ALLOCATION_ERROR();
     new_node->nodesetNext(this->head);

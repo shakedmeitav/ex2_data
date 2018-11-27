@@ -7,7 +7,11 @@
 
 
 int main() {
- /*   Node<int> node1 = new Node(1,2);
+
+    Map new_map;
+
+
+    /*   Node<int> node1 = new Node(1,2);
     Node<int> node2 = new Node<int>(3,4);
     node1.setKey(1);
     node1.setValue((void*)2);
