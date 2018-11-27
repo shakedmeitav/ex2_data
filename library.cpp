@@ -22,13 +22,22 @@ void *Init(){
  * the cimplexity is O(1)
  * @return
  */
-//StatusType Add(void *DS, int key, void* value, void** node){
-//try {
-//    ((Map *) DS)->Add(key, value, node);
-//}
-//catch (dataStructure::INVALID_INPUT& e) {
-//    cerr << "Out of memory";
-//}
+StatusType Add(void *DS, int key, void* value, void** node){
+    if(DS==NULL)
+        return INVALID_INPUT;
+    try {
+    ((Map *) DS)->Add(key, value, node);
+}
+catch (dataStructure::INVALID_INPUT& e) {
+    return INVALID_INPUT;
+}
+catch (dataStructure::ALLOCATION_ERROR& e) {
+    return ALLOCATION_ERROR;
+}
+catch (dataStructure::SUCCESS& e) {
+    return SUCCESS;
+}
+return SUCCESS;
 
-//}
+}
 
