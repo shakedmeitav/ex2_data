@@ -38,6 +38,82 @@ catch (dataStructure::SUCCESS& e) {
     return SUCCESS;
 }
 return SUCCESS;
-
 }
 
+/**
+ * the cimplexity is O(1)
+ * @return
+ */
+StatusType DeleteByPointer(void *DS, void* p){
+    if(DS==NULL)
+        return INVALID_INPUT;
+    try {
+        ((Map*) DS)->DeleteByPointer(p);
+    }
+    catch (dataStructure::INVALID_INPUT& e) {
+        return INVALID_INPUT;
+    }
+    catch (dataStructure::SUCCESS& e) {
+        return SUCCESS;
+    }
+    return SUCCESS;
+}
+
+/**
+ * the cimplexity is O(1)
+ * @return
+ */
+StatusType Size(void *DS, int *n){
+    if(DS==NULL)
+        return INVALID_INPUT;
+    try {
+        ((Map*) DS)->Size(n);
+    }
+    catch (dataStructure::INVALID_INPUT& e) {
+        return INVALID_INPUT;
+    }
+    catch (dataStructure::SUCCESS& e) {
+        return SUCCESS;
+    }
+    return SUCCESS;
+}
+
+
+
+StatusType Find(void *DS, int key, void** value){
+    if(DS==NULL)
+        return INVALID_INPUT;
+    try {
+        ((Map *) DS)->Find(key, value);
+    }
+    catch (dataStructure::INVALID_INPUT& e) {
+        return INVALID_INPUT;
+    }
+    catch (dataStructure::FAILURE& e) {
+        return FAILURE;
+    }
+    catch (dataStructure::SUCCESS& e) {
+        return SUCCESS;
+    }
+    return SUCCESS;
+}
+
+
+StatusType Delete(void *DS, int key){
+    if(DS==NULL)
+        return INVALID_INPUT;
+    int key_copy=key;
+    try {
+        ((Map *) DS)->Delete(key_copy);
+    }
+    catch (dataStructure::INVALID_INPUT& e) {
+        return INVALID_INPUT;
+    }
+    catch (dataStructure::FAILURE& e) {
+        return FAILURE;
+    }
+    catch (dataStructure::SUCCESS& e) {
+        return SUCCESS;
+    }
+    return SUCCESS;
+}

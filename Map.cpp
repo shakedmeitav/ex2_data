@@ -159,7 +159,7 @@ void  Map::Delete(int key) {
 
 
 void Map::Size(int *n){
-    if(this->head==NULL || n==NULL)
+    if(n==NULL)
         throw INVALID_INPUT;
 
     *n=this->size;
