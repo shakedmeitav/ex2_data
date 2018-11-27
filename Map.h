@@ -29,10 +29,6 @@ public:
      */
     int MapSize() const;
 
-
-};
-
-
 template <class T>
 class Node {
     T key;
@@ -69,25 +65,25 @@ public:
  * @param node
  * @return
  */
-    Node nodeGetNext();
+    Node* nodeGetNext();
     /**
      * return the prev node of the input node
      * @param node
      * @return
      */
-    Node nodeGetPrev();
+    Node* nodeGetPrev();
     /**
      * set the next node to be the input node
      * @param node
      * @return
      */
-    void* nodesetNext(Node node);
+    void* nodesetNext(Node* node);
     /**
      * set the prev node to be the input node
      * @param node
      * @return
      */
-    void* nodesetprev(Node node);
+    void* nodesetprev(Node* node);
 
     /**
      * get a node and a key and set the key of the node to be the key of the
@@ -115,6 +111,7 @@ public:
     void* getValue();
 
 };
+    };
 
 
 #endif //UNTITLED_MAP_H
