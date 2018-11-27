@@ -3,6 +3,7 @@
 
 #include <exception>
 
+
 namespace dataStructure {
 
     // dataStructure::exception class

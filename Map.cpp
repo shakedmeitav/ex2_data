@@ -166,6 +166,7 @@ void Map::Size(int *n){
     throw SUCCESS;
 }
 
+
 void Map::Quit(void **DS){
     Node<int>* save_itr=this->head;
     Node<int>* itr=this->head;
