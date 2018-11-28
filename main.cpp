@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include "Map.h"
 #include "library.h"
@@ -8,17 +7,15 @@
 
 int main() {
 
-    Map new_map;
+//Map map;
+   void* new_DS = Init();
+   void* p;
+   void* s;
+   //Map::Node<int>* node1 = new Map::Node<int>(1,2);
 
+   StatusType status = Add(new_DS ,1, (void *) 2, &p);
+   StatusType status2 = Add(new_DS, 3, (void *) 4, &p);
+   StatusType status3=Find(new_DS, 3, &s);
 
-    /*   Node<int> node1 = new Node(1,2);
-    Node<int> node2 = new Node<int>(3,4);
-    node1.setKey(1);
-    node1.setValue((void*)2);
-    node2.setKey(3);
-    node2.setValue((void*)4);
-     void * value=0;
-    StatusType s= Find(node1,1,&value);
-    printf("%d",value);
-*/
+    return 0;
 }

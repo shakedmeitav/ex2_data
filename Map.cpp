@@ -35,13 +35,13 @@ Map::Node<T>* Map::Node<T>:: nodeGetPrev(){
 
 template <class T>
 void* Map::Node<T>::nodesetNext(Node* node){
-    node->next=node;
+    this->next=node;
 }
 
 
 template <class T>
 void* Map::Node<T>::nodesetprev(Node* node){
-    node->prev=node;
+    this->prev=node;
 }
 
 template <class T>
@@ -76,13 +76,17 @@ void Map::Add(int key, void* value, void** node){
     Node<int>* new_node = new Node<int>(copy_key,copy_value);
     if (new_node==NULL)
         throw dataStructure::ALLOCATION_ERROR();
+    if(this->head==NULL){    //the map is empty in this case
+        head=new_node;
+        throw dataStructure::SUCCESS();
+    }
     new_node->nodesetNext(this->head);
-    new_node->nodesetprev(NULL);
     this->head->nodesetprev(new_node);
     new_node->setKey(key);
     new_node->setValue(value);
     this->head=new_node;
     this->size++;
+    *node=new_node;
     throw dataStructure::SUCCESS();
 }
 
@@ -102,29 +106,29 @@ void Map::DeleteByPointer(void* p){
             convert_p->nodeGetPrev()->nodesetNext(NULL);
             delete convert_p;
             size--;
-            throw SUCCESS;
+            throw dataStructure::SUCCESS();
         }
         convert_p->nodeGetPrev()->nodesetNext(convert_p->nodeGetNext());
         convert_p->nodeGetNext()->nodesetprev(convert_p->nodeGetPrev());
         delete convert_p;
         size--;
-        throw SUCCESS;
+        throw dataStructure::SUCCESS();
 }
 
 
 
 void Map::Find(int key, void** value) {
     if (*value == NULL)
-        throw INVALID_INPUT;
+        throw dataStructure::INVALID_INPUT();
     Node<int>* itr=(Node<int>*)this->head;
     while (itr != NULL) {
         if (itr->getKey() == key) {
             *value = itr->getValue();
-            throw SUCCESS;
+            throw dataStructure::SUCCESS();
         }
         itr = itr->nodeGetNext();
     }
-    throw FAILURE;             // if we here the system didnt fint the right key
+    throw dataStructure::FAILURE();             // if we here the system didnt fint the right key
 }
 
 
@@ -137,7 +141,7 @@ void  Map::Delete(int key) {
         this->head->nodesetprev(NULL);
         delete itr;
         size--;
-        throw SUCCESS;
+        throw dataStructure::SUCCESS();
     } else              //finish eith the case of the first node
         itr = itr->nodeGetNext();
     while (itr->nodeGetNext() != NULL){
@@ -149,21 +153,21 @@ void  Map::Delete(int key) {
                 itr->nodeGetPrev()->nodesetNext(NULL);
             delete itr;
             size--;
-            throw SUCCESS;
+            throw dataStructure::SUCCESS();
         }
         itr = itr->nodeGetNext();
     }
-    throw FAILURE;
+    throw dataStructure::FAILURE();
 }
 
 
 
 void Map::Size(int *n){
     if(n==NULL)
-        throw INVALID_INPUT;
+        throw dataStructure::INVALID_INPUT();
 
     *n=this->size;
-    throw SUCCESS;
+    throw dataStructure::SUCCESS();
 }
 
 
