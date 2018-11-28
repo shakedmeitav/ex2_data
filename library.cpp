@@ -117,3 +117,13 @@ StatusType Delete(void *DS, int key){
     }
     return SUCCESS;
 }
+
+void Quit(void** DS){
+    if(*DS==NULL)
+        return;
+    Map* dictionary = (Map*) *DS;
+    dictionary->Quit(DS);
+    delete dictionary;
+    *DS=NULL;
+
+}
