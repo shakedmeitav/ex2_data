@@ -51,13 +51,13 @@ class Map{
          * @param node
          * @return
          */
-        void* nodesetNext(Node* node);
+        void nodesetNext(Node* node);
         /**
          * set the prev node to be the input node
          * @param node
          * @return
          */
-        void* nodesetprev(Node* node);
+        void nodesetprev(Node* node);
 
 
         /**

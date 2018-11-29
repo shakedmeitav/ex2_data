@@ -9,11 +9,13 @@
  * @return
  */
 void *Init(){
-    Map* DS= new Map;
-    if (DS==NULL){
+    try {
+        Map *DS = new Map;
+        return (void*)DS;
+
+    }catch (std::bad_alloc &e){
         return NULL;
     }
-    return (void*)DS;
 }
 
 

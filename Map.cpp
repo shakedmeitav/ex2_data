@@ -5,18 +5,18 @@
 #include "Map.h"
 #include <iostream>
 
-Map::Map():size(0) {
-    this->head =NULL;
+Map::Map():head(NULL),size(0){
 }
 
 int Map::MapSize ()const{
     return this->size;
 }
 
-
+/*
 void* Map::returnHead (){
     return this->head;
 }
+ */
 
 
 template <class T>
@@ -34,13 +34,13 @@ Map::Node<T>* Map::Node<T>:: nodeGetPrev(){
 }
 
 template <class T>
-void* Map::Node<T>::nodesetNext(Node* node){
+void Map::Node<T>::nodesetNext(Node* node){
     this->next=node;
 }
 
 
 template <class T>
-void* Map::Node<T>::nodesetprev(Node* node){
+void Map::Node<T>::nodesetprev(Node* node){
     this->prev=node;
 }
 
@@ -51,7 +51,7 @@ void Map::Node<T>:: setKey(T key){
 
 
 template <class T>
-void Map::Node<T>::setValue( void *value) {
+void Map::Node<T>::setValue(void *value) {
     this->value=value;
 }
 
@@ -74,22 +74,22 @@ void Map::Add(int key, void* value, void** node){
     int copy_key=key;
     void* copy_value=value;
     Node<int>* new_node = new Node<int>(copy_key,copy_value);
-    if (new_node==NULL)
-        throw dataStructure::ALLOCATION_ERROR();
+ //   if (new_node==NULL)
+//        throw dataStructure::ALLOCATION_ERROR();
     if(this->head==NULL){    //the map is empty in this case
         head=new_node;
         size++;
         *node=new_node;
-        throw dataStructure::SUCCESS();
-    }
-    new_node->nodesetNext(this->head);
-    this->head->nodesetprev(new_node);
-    new_node->setKey(key);
-    new_node->setValue(value);
-    this->head=new_node;
-    this->size++;
-    *node=new_node;
-    throw dataStructure::SUCCESS();
+throw dataStructure::SUCCESS();
+}
+new_node->nodesetNext(this->head);
+this->head->nodesetprev(new_node);
+new_node->setKey(key);
+new_node->setValue(value);
+this->head=new_node;
+this->size++;
+*node=new_node;
+throw dataStructure::SUCCESS();
 }
 
 
@@ -125,15 +125,17 @@ void Map::DeleteByPointer(void* p){
 
 
 void Map::Find(int key, void** value) {
-    if (*value == NULL)
+    if (*value == NULL) {
         throw dataStructure::INVALID_INPUT();
-    Node<int>* itr=(Node<int>*)this->head;
+    }
+    Node<int>* itr=this->head;
+    *value=(void *)NULL;
     while (itr != NULL) {
         if (itr->getKey() == key) {
             *value = itr->getValue();
             throw dataStructure::SUCCESS();
         }
-        itr = itr->nodeGetNext();
+            itr = itr->nodeGetNext();
     }
     throw dataStructure::FAILURE();             // if we here the system didnt fint the right key
 }
@@ -141,8 +143,7 @@ void Map::Find(int key, void** value) {
 
 
 void  Map::Delete(int key) {
-    Node<int> *itr = (Node<int>*) head;
-    void *value;
+    Node<int> *itr =  head;
     if (itr->getKey() == key) {         //first node
         if(itr->nodeGetNext()!=NULL) {
             this->head = itr->nodeGetNext();
@@ -153,6 +154,7 @@ void  Map::Delete(int key) {
         }else{
             this->head=NULL;
             size--;
+            delete itr;
             throw dataStructure::SUCCESS();
         }
     } else {             //finish eith the case of the first node
@@ -180,12 +182,9 @@ void  Map::Delete(int key) {
         throw dataStructure::FAILURE();
     }
 
-
-
 void Map::Size(int *n){
     if(n==NULL)
         throw dataStructure::INVALID_INPUT();
-
     *n=this->size;
     throw dataStructure::SUCCESS();
 }
@@ -193,12 +192,10 @@ void Map::Size(int *n){
 
 void Map::Quit(void **DS){
     Node<int>* save_itr=this->head;
-    Node<int>* itr=this->head;
-    while (itr!=NULL) {
+    Node<int>* itr=save_itr;
+    for(; itr!=NULL; itr=save_itr){
         save_itr=itr->nodeGetNext();
         delete itr;
-        Node<int>* itr=save_itr;
     }
 }
-
 
