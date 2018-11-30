@@ -6,7 +6,6 @@ class Map{
     int size;
 
 public:
-
     /**
  * constractur for the Map
  * @param name -
@@ -22,10 +21,6 @@ public:
     Map &operator=(const Map &map);
 
 
-
-
-
-
 };
 
 
@@ -35,8 +30,71 @@ class Node {
     void* value;
     Node* next;
     Node* prev;
-};
 
+public:
+/**
+ * constructor of Node  O(1)
+ * @tparam T
+ * @param key
+ * @param value
+ */
+    Node(T key,  void* value);
+/**
+ * destructor 0(1)
+ */
+    ~Node()= default;
+/**
+ * copy constructor 0(1)
+ * @param node
+ */
+    Node (const Node &node)= default;
+/**
+ * operator = ,0(1)
+ * @param node
+ * @return
+ */
+    Node &operator=(const Node &node)= default;
+
+/**
+ * return the next node of the input node
+ * @param node
+ * @return
+ */
+    Node nodeGetNext(Node node);
+    /**
+     * return the prev node of the input node
+     * @param node
+     * @return
+     */
+    Node nodeGetPrev(Node node);
+    /**
+     * get a node and a key and set the key of the node to be the key of the
+     * input node
+     * @param node
+     * @param key
+     */
+    void setKey(Node node,T key);
+    /**
+     * get a node and a value and set the value of the node to be the value
+     * of the input node
+     * @param node
+     * @param value
+     */
+    void setValue(Node node,void* value);
+    /**
+     * get a node and return his key
+     * @param node
+     * @return
+     */
+    T getKey(Node node);
+    /**
+     * get a node and return his value
+     * @param node
+     * @return
+     */
+    void* getValue(Node node);
+
+};
 
 
 #endif //UNTITLED_MAP_H
