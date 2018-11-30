@@ -22,34 +22,34 @@ Node<T> ::Node(T key,  void* value): key(key),value(value),next(NULL),prev(NULL)
 
 }
 template <class T>
-Node<T> Node<T>:: nodeGetNext(Node node){
-    return node.next;
+Node<T> Node<T>:: nodeGetNext(){
+    return this->next;
 }
 
 template <class T>
-Node<T> Node<T>:: nodeGetPrev(Node node){
-    return node.prev;
-}
-
-
-template <class T>
-void Node<T>:: setKey(Node node,T key){
-    node.key=key;
+Node<T> Node<T>:: nodeGetPrev(){
+    return this->prev;
 }
 
 
 template <class T>
-void Node<T>::setValue(Node node, void *value) {
-    node.value=value;
-}
-
-template <class T>
-T  Node<T>::getKey(Node node){
-    return node.key;
+void Node<T>:: setKey(T key){
+    this->key=key;
 }
 
 
 template <class T>
-void* Node<T>::getValue(Node node){
-    return node.value;
+void Node<T>::setValue( void *value) {
+    this->value=value;
+}
+
+template <class T>
+T  Node<T>::getKey(){
+    return this->key;
+}
+
+
+template <class T>
+void* Node<T>::getValue(){
+    return this->value;
 }

@@ -69,39 +69,37 @@ public:
  * @param node
  * @return
  */
-    Node nodeGetNext(Node node);
+    Node nodeGetNext();
     /**
      * return the prev node of the input node
      * @param node
      * @return
      */
-    Node nodeGetPrev(Node node);
+    Node nodeGetPrev();
     /**
      * get a node and a key and set the key of the node to be the key of the
      * input node
      * @param node
      * @param key
      */
-    void setKey(Node node,T key);
+    void setKey(T key);
     /**
      * get a node and a value and set the value of the node to be the value
      * of the input node
      * @param node
      * @param value
      */
-    void setValue(Node node,void* value);
+    void setValue(void* value);
     /**
      * get a node and return his key
-     * @param node
      * @return
      */
-    T getKey(Node node);
+    T getKey();
     /**
      * get a node and return his value
-     * @param node
      * @return
      */
-    void* getValue(Node node);
+    void* getValue();
 
 };
 
